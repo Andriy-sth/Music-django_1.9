@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Viberr{% endblock %}</title>
+    <title>{% block title %}Music{% endblock %}</title>
     {% load staticfiles %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href='https://fonts.googleapis.com/css?family=Satisfy' rel='stylesheet' type='text/css'>
@@ -23,7 +23,7 @@
                 <span class="icon-bar"></span>
 
             </button>
-            <a class="navbar-brand" href="{% url 'music:index' %}">Viberr</a>
+            <a class="navbar-brand" href="{% url 'music:index' %}">Music</a>
         </div>
 
         <!-- Items -->
@@ -31,17 +31,10 @@
             <ul class="nav navbar-nav">
 
                 <li class="">
-                    <a href="{% url 'music:index' %}">
-                        <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>&nbsp; Albums
-                    </a>
-                </li>
-
-                <li class="">
                     <a href="#">
                         <span class="glyphicon glyphicon-music" aria-hidden="true"></span>&nbsp; Songs
                     </a>
                 </li>
-
 
             </ul>
 
@@ -53,6 +46,11 @@
             </form>
 
             <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                    <a href="{% url 'music:register' %}">
+                        <span class="" aria-hidden="true"></span>&nbsp; Registration
+                    </a>
+                </li>
                 <li class="">
                     <a href="{% url 'music:album-add' %}">
                         <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp; Add Album
