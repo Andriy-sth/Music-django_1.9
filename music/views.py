@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login
 from .models import Album
 from django.views.generic import View
 from .forms import UserForm
+from django.contrib.auth.models import User
 
 
 class IndexView(generic.ListView):
@@ -57,7 +58,7 @@ class UserFormView(View):
             user.set_password(password)
             user.save()
 
-            # returs User object
+            # return User object
             user = authenticate(username=username, password=password)
 
             if user is not None:
@@ -65,4 +66,18 @@ class UserFormView(View):
                     login(request, user)
                     return redirect('music:index')
 
+        return render(request, self.template_name, {'form': form})
+
+
+# login form
+class UserLogin(View):
+    form_class = UserForm
+    template_name = 'music/login.html'
+
+    def get(self, request):
+        form = self.form_class(None)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
         return render(request, self.template_name, {'form': form})
