@@ -2,10 +2,10 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .models import Album
 from django.views.generic import View
-from .forms import UserForm
+from .forms import UserForm, LoginForm
 from django.contrib.auth.models import User
 
 
@@ -70,8 +70,9 @@ class UserFormView(View):
 
 
 # login form
+
 class UserLogin(View):
-    form_class = UserForm
+    form_class = LoginForm
     template_name = 'music/login.html'
 
     def get(self, request):
@@ -80,4 +81,15 @@ class UserLogin(View):
 
     def post(self, request):
         form = self.form_class(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+
+        user = authenticate(username=username, password=password)
+
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('music:index')
         return render(request, self.template_name, {'form': form})
+
+
